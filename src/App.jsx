@@ -1,24 +1,26 @@
 import React from 'react';
+import MagneticCursor from './components/MagneticCursor';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import About from './components/About';
+import TrustSection from './components/TrustSection';
 import Services from './components/Services';
-import Skills from './components/Skills';
 import Projects from './components/Projects';
-import Resume from './components/Resume';
+import ProcessTimeline from './components/ProcessTimeline';
+import Skills from './components/Skills';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
 function App() {
   return (
     <div className="App">
+      <MagneticCursor />
       <Navbar />
       <Hero />
-      <About />
+      <TrustSection />
       <Services />
-      <Skills />
       <Projects />
-      <Resume />
+      <ProcessTimeline />
+      <Skills />
       <Contact />
       <Footer />
     </div>
@@ -26,4 +28,3 @@ function App() {
 }
 
 export default App;
-

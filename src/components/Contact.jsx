@@ -1,61 +1,205 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import '../styles/contact.css';
 
+const channels = [
+  { icon: '📧', label: 'Email', value: 'saimhassantariq0003@gmail.com', href: 'mailto:saimhassantariq@gmail.com' },
+  { icon: '💬', label: 'WhatsApp', value: 'Chat Now', href: 'https://wa.me/923251013090' },
+  { icon: '🐙', label: 'GitHub', value: 'Saimhassan0003', href: 'https://github.com/Saimhassan0003' },
+  { icon: '💼', label: 'LinkedIn', value: 'Connect with me', href: 'https://linkedin.com' },
+];
+
 const Contact = () => {
-    const contactInfo = [
-        { icon: '📧', title: 'Email', value: 'saimhassantariq@gmail.com', link: 'mailto:saimhassantariq@gmail.com' },
-        { icon: '📱', title: 'Phone', value: '03251013090', link: 'tel:03251013090' },
-        { icon: '�', title: 'WhatsApp', value: 'Chat Now', link: 'https://wa.me/923251013090' },
-        { icon: '�📍', title: 'Location', value: 'Lahore', link: null },
-        { icon: '🐙', title: 'GitHub', value: 'View Profile', link: 'https://github.com' },
-        { icon: '💼', title: 'LinkedIn', value: 'Connect', link: 'https://linkedin.com' }
-    ];
+  const [form, setForm] = useState({ name: '', email: '', type: '', budget: '', message: '' });
+  const [submitted, setSubmitted] = useState(false);
 
-    return (
-        <section id="contact" className="contact section-padding">
-            <div className="container">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5 }}
-                    className="section-header"
-                >
-                    <h2 className="heading-lg text-center">Get In Touch</h2>
-                    <p className="section-subtitle">Let's connect!</p>
-                </motion.div>
+  const handleChange = (e) => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
 
-                <div className="contact-content">
-                    <motion.div
-                        className="contact-grid"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        {contactInfo.map((info, index) => (
-                            <motion.a
-                                key={index}
-                                href={info.link}
-                                target={info.link && info.link.startsWith('http') ? "_blank" : "_self"}
-                                rel={info.link && info.link.startsWith('http') ? "noopener noreferrer" : ""}
-                                className={`contact-card ${!info.link ? 'no-hover' : ''}`}
-                                whileHover={info.link ? { y: -5, boxShadow: "0 10px 30px -10px rgba(99, 102, 241, 0.3)" } : {}}
-                                style={{ cursor: info.link ? 'pointer' : 'default' }}
-                            >
-                                <div className="contact-icon">{info.icon}</div>
-                                <div>
-                                    <h3>{info.title}</h3>
-                                    <p>{info.value}</p>
-                                </div>
-                            </motion.a>
-                        ))}
-                    </motion.div>
-                </div>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // In production: send to backend / Formspree / etc.
+    setSubmitted(true);
+  };
+
+  return (
+    <section id="contact" className="contact">
+      <div className="container">
+        {/* Header */}
+        <motion.div
+          className="section-header"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <span className="section-tag section-tag-light">Let's Work Together</span>
+          <h2 className="heading-lg">Start Your <span style={{ color: '#0A192F' }}>Project Today</span></h2>
+          <div className="divider-dark divider-dark-center" />
+          <p className="section-subtitle">
+            Have a project in mind? Let's talk about how we can bring your idea to life.
+          </p>
+        </motion.div>
+
+        <div className="contact-layout">
+          {/* ─ Left Info ─ */}
+          <motion.div
+            className="contact-info"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            {/* Availability */}
+            <div className="contact-availability">
+              <span className="pulse-dot" />
+              <div className="availability-text">
+                <span className="availability-status">✓ Available for new projects</span>
+                <span className="availability-detail">Typically replies within 2 hours</span>
+              </div>
             </div>
-        </section>
-    );
+
+            <div>
+              <h3 className="contact-info-headline">Let's Build Something<br />Amazing Together</h3>
+            </div>
+
+            <p className="contact-info-desc">
+              Whether you need a full product build, a React frontend, or AI integration —
+              I'm ready to become your dedicated technical partner. Book a free 30-minute
+              discovery call and let's map out your project together.
+            </p>
+
+            {/* Social Proof */}
+            <div className="contact-proof-row">
+              {[
+                { icon: '⚡', text: 'Avg reply: 2 hours' },
+                { icon: '🎯', text: '100% response rate' },
+                { icon: '📅', text: 'Avg project: 4–8 weeks' },
+                { icon: '✅', text: '50+ projects delivered' },
+              ].map((p) => (
+                <div key={p.text} className="proof-item">
+                  <span className="proof-icon">{p.icon}</span>
+                  {p.text}
+                </div>
+              ))}
+            </div>
+
+            {/* Channels */}
+            <div className="contact-channels">
+              {channels.map((c) => (
+                <motion.a
+                  key={c.label}
+                  href={c.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="channel-card"
+                  whileHover={{ y: -3 }}
+                >
+                  <div className="channel-icon">{c.icon}</div>
+                  <div>
+                    <div className="channel-label">{c.label}</div>
+                    <div className="channel-value">{c.value}</div>
+                  </div>
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* ─ Right Form ─ */}
+          <motion.div
+            className="contact-form-wrapper"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <AnimatePresence mode="wait">
+              {submitted ? (
+                <motion.div
+                  className="form-success"
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <div className="form-success-icon">🎉</div>
+                  <div className="form-success-title">Message Sent!</div>
+                  <p className="form-success-text">
+                    Thanks for reaching out. I'll get back to you within 2 hours.
+                  </p>
+                </motion.div>
+              ) : (
+                <motion.form
+                  key="form"
+                  onSubmit={handleSubmit}
+                  initial={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <div className="contact-form-title">Get a Free Estimate</div>
+                  <div className="contact-form-subtitle">Fill in the details below and I'll get back to you quickly.</div>
+
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label className="form-label">Your Name</label>
+                      <input
+                        name="name" required
+                        className="form-input"
+                        placeholder="John Smith"
+                        value={form.name}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Email Address</label>
+                      <input
+                        name="email" type="email" required
+                        className="form-input"
+                        placeholder="john@company.com"
+                        value={form.email}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <label className="form-label">Project Type</label>
+                    <select name="type" className="form-select" value={form.type} onChange={handleChange}>
+                      <option value="">Select type...</option>
+                      <option>Web Application</option>
+                      <option>E-commerce Store</option>
+                      <option>AI / ML Integration</option>
+                      <option>Landing Page</option>
+
+                      <option>Other</option>
+                    </select>
+                  </div>
+
+                  <div className="form-group">
+                    <label className="form-label">Tell Me About Your Project</label>
+                    <textarea
+                      name="message" required
+                      className="form-textarea"
+                      placeholder="Describe your project, goals, and any specific requirements..."
+                      value={form.message}
+                      onChange={handleChange}
+                    />
+                  </div>
+
+                  <motion.button
+                    type="submit"
+                    className="form-submit"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    📅 Send Message & Get Estimate
+                  </motion.button>
+                </motion.form>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Contact;

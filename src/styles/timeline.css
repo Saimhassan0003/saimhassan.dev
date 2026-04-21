@@ -1,0 +1,208 @@
+/* === PROCESS TIMELINE === */
+.process {
+  background: #F8F9FA;
+  padding: 6rem 0;
+  overflow: hidden;
+}
+
+.process-intro {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+/* ─ Horizontal Scroll Track ─ */
+.process-scroll-wrapper {
+  position: relative;
+  overflow-x: auto;
+  overflow-y: visible;
+  cursor: grab;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  padding: 2rem 0 3rem;
+}
+
+.process-scroll-wrapper::-webkit-scrollbar { display: none; }
+.process-scroll-wrapper:active { cursor: grabbing; }
+
+.process-track {
+  display: flex;
+  gap: 0;
+  width: max-content;
+  padding: 0 4rem;
+  position: relative;
+  align-items: flex-start;
+}
+
+/* Connecting line */
+.process-line {
+  position: absolute;
+  top: 56px;
+  left: 108px;
+  right: 108px;
+  height: 2px;
+  background: rgba(10,25,47,0.1);
+  overflow: hidden;
+}
+
+.process-line-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #64FFDA, #4EC9A8);
+  width: 0%;
+  transition: width 1.5s ease;
+}
+
+.process-line-fill.animated {
+  width: 100%;
+}
+
+/* ─ Phase Node ─ */
+.process-phase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.phase-node {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid rgba(10,25,47,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  position: relative;
+  z-index: 2;
+  cursor: none;
+  transition: all 0.35s ease;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.process-phase.active .phase-node,
+.process-phase:hover .phase-node {
+  border-color: #64FFDA;
+  background: #0A192F;
+  box-shadow: 0 0 30px rgba(100,255,218,0.3);
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.phase-number {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #64FFDA;
+  color: #0A192F;
+  font-size: 0.65rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Outfit', sans-serif;
+}
+
+.phase-content {
+  margin-top: 1.25rem;
+  text-align: center;
+  padding: 0 0.5rem;
+}
+
+.phase-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0A192F;
+  margin-bottom: 0.4rem;
+}
+
+.phase-duration {
+  font-size: 0.72rem;
+  color: #64FFDA;
+  font-weight: 600;
+  background: rgba(100,255,218,0.1);
+  border: 1px solid rgba(100,255,218,0.25);
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 0.6rem;
+  display: inline-block;
+}
+
+.phase-desc {
+  font-size: 0.8rem;
+  color: #4A5568;
+  line-height: 1.5;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Expanded detail panel */
+.phase-detail {
+  position: absolute;
+  top: calc(100% + 1rem);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0A192F;
+  border: 1px solid rgba(100,255,218,0.25);
+  border-radius: 16px;
+  padding: 1.25rem;
+  width: 220px;
+  z-index: 10;
+  box-shadow: 0 16px 40px rgba(2,12,27,0.4);
+}
+
+.phase-detail-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #64FFDA;
+  margin-bottom: 0.75rem;
+}
+
+.phase-deliverables {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.phase-deliverables li {
+  font-size: 0.78rem;
+  color: #A8B2D8;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.4;
+}
+
+.phase-deliverables li::before {
+  content: '✓';
+  color: #64FFDA;
+  flex-shrink: 0;
+  font-weight: 700;
+}
+
+/* ─ Bottom CTA ─ */
+.process-cta {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.process-hint {
+  font-size: 0.8rem;
+  color: #94A3B8;
+  font-family: 'Inter', sans-serif;
+  margin-top: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .process-track { padding: 0 2rem; }
+  .process-phase { width: 160px; }
+  .phase-node { width: 58px; height: 58px; font-size: 1.4rem; }
+}
