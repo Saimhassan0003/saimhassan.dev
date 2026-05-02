@@ -5,6 +5,7 @@ import '../styles/footer.css';
 const Footer = () => {
   const [showSticky, setShowSticky] = useState(false);
   const year = new Date().getFullYear();
+  const githubRepoUrl = 'https://github.com/Saimhassan0003/saimhassan.dev';
 
   useEffect(() => {
     const hero = document.getElementById('hero');
@@ -70,7 +71,7 @@ const Footer = () => {
               </div>
               <div className="footer-social-row" style={{ marginTop: '1.25rem' }}>
                 {[
-                  { icon: '🐙', href: 'https://github.com/Saimhassan0003', label: 'GitHub' },
+                  { icon: '🐙', href: githubRepoUrl, label: 'GitHub' },
                   { icon: '💼', href: 'https://linkedin.com', label: 'LinkedIn' },
                   { icon: '💬', href: 'https://wa.me/923251013090', label: 'WhatsApp' },
                   { icon: '📧', href: 'mailto:saimhassantariq@gmail.com', label: 'Email' },

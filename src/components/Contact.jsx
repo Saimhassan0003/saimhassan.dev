@@ -5,7 +5,7 @@ import '../styles/contact.css';
 const channels = [
   { icon: '📧', label: 'Email', value: 'saimhassantariq0003@gmail.com', href: 'mailto:saimhassantariq@gmail.com' },
   { icon: '💬', label: 'WhatsApp', value: 'Chat Now', href: 'https://wa.me/923251013090' },
-  { icon: '🐙', label: 'GitHub', value: 'Saimhassan0003', href: 'https://github.com/Saimhassan0003' },
+  { icon: '🐙', label: 'GitHub', value: 'Saimhassan0003', href: 'https://github.com/Saimhassan0003/saimhassan.dev' },
   { icon: '💼', label: 'LinkedIn', value: 'Connect with me', href: 'https://linkedin.com' },
 ];
 

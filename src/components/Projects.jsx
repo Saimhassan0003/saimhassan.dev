@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import '../styles/projects.css';
 
 const ALL = 'All';
+const githubRepoUrl = 'https://github.com/Saimhassan0003/saimhassan.dev';
+const vercelSiteUrl = 'https://saimhassan-dev.vercel.app/';
 
 const projects = [
   {
@@ -11,8 +13,8 @@ const projects = [
     tech: ['React', 'Vite', 'Framer Motion', 'Vercel'],
     category: 'Web App',
     metric: '⚡ 5-min diagnostic survey',
-    liveLink: 'https://sehatti-survery-kr17.vercel.app',
-    githubLink: 'https://github.com/Saimhassan0003?tab=repositories',
+    liveLink: vercelSiteUrl,
+    githubLink: githubRepoUrl,
     image: 'https://images.unsplash.com/photo-1559028012-481c04fa702d?w=800&h=450&fit=crop',
   },
   {
@@ -22,7 +24,7 @@ const projects = [
     category: 'Web App',
     metric: '↑ Multi-page full replica',
     liveLink: 'https://saimhassan0003.github.io/education-website/',
-    githubLink: 'https://github.com/Saimhassan0003?tab=repositories',
+    githubLink: githubRepoUrl,
     image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=450&fit=crop',
   },
   {
@@ -31,7 +33,7 @@ const projects = [
     tech: ['React', 'JavaScript', 'CSS3', 'Firebase'],
     category: 'Web App',
     metric: '↑ 60% engagement',
-    githubLink: 'https://github.com/Saimhassan0003?tab=repositories',
+    githubLink: githubRepoUrl,
     image: 'https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=450&fit=crop',
   },
   {
@@ -41,7 +43,7 @@ const projects = [
     category: 'Web App',
     metric: '↑ 3x lead generation',
     liveLink: '#',
-    githubLink: 'https://github.com/Saimhassan0003?tab=repositories',
+    githubLink: githubRepoUrl,
     image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&h=450&fit=crop',
   },
   {
@@ -51,7 +53,7 @@ const projects = [
     category: 'ML & AI',
     metric: '94% model accuracy',
     liveLink: '#',
-    githubLink: 'https://github.com/Saimhassan0003?tab=repositories',
+    githubLink: githubRepoUrl,
     image: 'https://images.unsplash.com/photo-1559757175-5700dde675bc?w=800&h=450&fit=crop',
   },
   {
@@ -61,7 +63,7 @@ const projects = [
     category: 'Web App',
     metric: '↑ 40% booking rate',
     liveLink: '#',
-    githubLink: 'https://github.com/Saimhassan0003?tab=repositories',
+    githubLink: githubRepoUrl,
     image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&h=450&fit=crop',
   },
   {
@@ -71,7 +73,7 @@ const projects = [
     category: 'ML & AI',
     metric: '89% prediction accuracy',
     liveLink: '#',
-    githubLink: 'https://github.com/Saimhassan0003?tab=repositories',
+    githubLink: githubRepoUrl,
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=450&fit=crop',
   },
 ];
@@ -200,7 +202,7 @@ const Projects = () => {
         {/* CTA */}
         <div className="projects-cta">
           <motion.a
-            href="https://github.com/Saimhassan0003?tab=repositories"
+            href={githubRepoUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-outline btn-lg"

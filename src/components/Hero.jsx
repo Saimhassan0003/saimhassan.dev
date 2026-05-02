@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import '../styles/hero.css';
 import profileImg from '../assets/images/saim.jpeg';
-import resume from '../assets/images/saim Resume_2.pdf';
 
 /* ── Particle canvas ─────────────────────────────── */
 function ParticleCanvas() {
