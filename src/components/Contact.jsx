@@ -10,15 +10,49 @@ const channels = [
 ];
 
 const Contact = () => {
-  const [form, setForm] = useState({ name: '', email: '', type: '', budget: '', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', projectCategory: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
   const handleChange = (e) => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // In production: send to backend / Formspree / etc.
-    setSubmitted(true);
+    setLoading(true);
+    setError('');
+
+    try {
+      const response = await fetch(`${API_URL}/api/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(form),
+        credentials: 'include'
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || `Server error: ${response.status}`);
+      }
+
+      setSubmitted(true);
+      setForm({ name: '', email: '', projectCategory: '', message: '' });
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (err) {
+      const errorMsg = err instanceof TypeError
+        ? `Cannot reach server at ${API_URL}. Is the backend running?`
+        : err.message;
+      setError(errorMsg);
+      console.error('Contact form error:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -137,13 +171,19 @@ const Contact = () => {
                   <div className="contact-form-title">Get a Free Estimate</div>
                   <div className="contact-form-subtitle">Fill in the details below and I'll get back to you quickly.</div>
 
+                  {error && (
+                    <div style={{ padding: '0.75rem', marginBottom: '1rem', backgroundColor: '#ff4444', color: 'white', borderRadius: '8px', fontSize: '0.9rem' }}>
+                      ✗ {error}
+                    </div>
+                  )}
+
                   <div className="form-row">
                     <div className="form-group">
                       <label className="form-label">Your Name</label>
                       <input
                         name="name" required
                         className="form-input"
-                        placeholder="John Smith"
+                        placeholder="Name"
                         value={form.name}
                         onChange={handleChange}
                       />
@@ -153,7 +193,7 @@ const Contact = () => {
                       <input
                         name="email" type="email" required
                         className="form-input"
-                        placeholder="john@company.com"
+                        placeholder="Email@company.com"
                         value={form.email}
                         onChange={handleChange}
                       />
@@ -161,14 +201,12 @@ const Contact = () => {
                   </div>
 
                   <div className="form-group">
-                    <label className="form-label">Project Type</label>
-                    <select name="type" className="form-select" value={form.type} onChange={handleChange}>
-                      <option value="">Select type...</option>
-                      <option>Web Application</option>
-                      <option>E-commerce Store</option>
-                      <option>AI / ML Integration</option>
-                      <option>Landing Page</option>
-
+                    <label className="form-label">Project Category</label>
+                    <select name="projectCategory" className="form-select" value={form.projectCategory} onChange={handleChange} required>
+                      <option value="">Select category...</option>
+                      <option>Web Development</option>
+                      <option>MERN Stack</option>
+                      <option>Machine Learning</option>
                       <option>Other</option>
                     </select>
                   </div>
@@ -186,11 +224,13 @@ const Contact = () => {
 
                   <motion.button
                     type="submit"
+                    disabled={loading}
                     className="form-submit"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    style={{ opacity: loading ? 0.7 : 1, cursor: loading ? 'not-allowed' : 'pointer' }}
+                    whileHover={!loading ? { scale: 1.02 } : {}}
+                    whileTap={!loading ? { scale: 0.98 } : {}}
                   >
-                    📅 Send Message & Get Estimate
+                    {loading ? '⏳ Sending...' : '📅 Send Message & Get Estimate'}
                   </motion.button>
                 </motion.form>
               )}
