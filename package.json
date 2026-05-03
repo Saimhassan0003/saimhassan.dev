@@ -14,13 +14,11 @@
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
     "@fortawesome/react-fontawesome": "^3.2.0",
     "framer-motion": "^12.34.0",
-    "mongo-sanitize": "^1.1.0",
     "mongoose": "^9.6.1",
     "nodemailer": "^8.0.7",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-tilt": "^1.0.2",
-    "xss": "^1.0.15"
+    "react-tilt": "^1.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
