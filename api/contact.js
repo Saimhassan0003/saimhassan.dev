@@ -147,6 +147,7 @@ export default async function handler(req, res) {
   // Send email
   if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
     try {
+      console.log('[EMAIL] Attempting to send to:', process.env.EMAIL_USER);
       const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
@@ -162,23 +163,31 @@ export default async function handler(req, res) {
         to: process.env.EMAIL_USER,
         replyTo: email,
         subject: `New message from ${name} — ${projectCategory}`,
-        text: [
-          `Name:     ${name}`,
-          `Email:    ${email}`,
-          `Category: ${projectCategory}`,
-          '',
-          `Message:`,
-          message,
-        ].join('\n'),
+        text: `Name: ${name}\nEmail: ${email}\nCategory: ${projectCategory}\nMessage: ${message}`,
+        html: `
+          <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;border:1px solid #e0e0e0;border-radius:8px;">
+            <h2 style="color:#64ffda;background:#0a192f;padding:15px;border-radius:6px;">New Portfolio Contact</h2>
+            <table style="width:100%;border-collapse:collapse;">
+              <tr><td style="padding:10px;font-weight:bold;width:120px;">Name:</td><td style="padding:10px;">${name}</td></tr>
+              <tr style="background:#f9f9f9;"><td style="padding:10px;font-weight:bold;">Email:</td><td style="padding:10px;"><a href="mailto:${email}">${email}</a></td></tr>
+              <tr><td style="padding:10px;font-weight:bold;">Category:</td><td style="padding:10px;">${projectCategory}</td></tr>
+              <tr style="background:#f9f9f9;"><td style="padding:10px;font-weight:bold;vertical-align:top;">Message:</td><td style="padding:10px;">${message.replace(/\n/g, '<br>')}</td></tr>
+            </table>
+            <p style="color:#888;font-size:12px;margin-top:20px;">Reply directly to this email to respond to ${name}.</p>
+          </div>
+        `,
       });
+
+      console.log('[EMAIL] Sent successfully to:', process.env.EMAIL_USER);
     } catch (mailErr) {
       console.error('[EMAIL ERROR]', mailErr.message);
-      // Message is saved in DB, so still return success but log the email failure
       return res.status(201).json({
         success: true,
-        message: 'Message received! (Email notification failed internally — we will still get back to you.)'
+        message: 'Message saved! Email notification failed but we will still get back to you.'
       });
     }
+  } else {
+    console.warn('[EMAIL] Skipped — EMAIL_USER or EMAIL_PASS not set.');
   }
 
   return res.status(201).json({ success: true, message: 'Message received! I will get back to you soon.' });
