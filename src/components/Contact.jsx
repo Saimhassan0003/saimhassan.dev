@@ -25,14 +25,13 @@ const Contact = () => {
     setError('');
 
     try {
-      const response = await fetch(`${API_URL}/api/contact`, {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        body: JSON.stringify(form),
-        credentials: 'include'
+        body: JSON.stringify(form)
       });
 
       const data = await response.json();
