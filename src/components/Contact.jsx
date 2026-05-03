@@ -34,7 +34,12 @@ const Contact = () => {
         body: JSON.stringify(form)
       });
 
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+      } catch (e) {
+        throw new Error('Server returned an invalid response. Please try again.');
+      }
 
       if (!response.ok) {
         throw new Error(data.message || `Server error: ${response.status}`);
